@@ -16,7 +16,7 @@ DebounceNoInt::DebounceNoInt(int pin, uint8_t active_high_low, unsigned long deb
 /*
     ~DebounceNoInt
 
-    Default doceonstructor.
+    Default deconstructor.
 */
 DebounceNoInt::~DebounceNoInt() {
     ;
@@ -50,11 +50,15 @@ void DebounceNoInt::begin() {
 	was not updated.
 */
 bool DebounceNoInt::run() {
-	curr_debounce_micros = micros();
 	bool ret;
+	// get current micros time
+	curr_debounce_micros = micros();
 
-	// check if time to take new input reading
+	// check micros time to take new input reading
 	if ((curr_debounce_micros - last_debounce_micros) >= debounce_interval_us) {
+		// reset previous micros time reading
+		last_debounce_micros = curr_debounce_micros;
+		// prepare history for new input reading
 		history <<= 1;
 		
 		// if input is high, set LSB to 1

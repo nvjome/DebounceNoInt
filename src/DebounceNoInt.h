@@ -3,7 +3,7 @@
 
 #include "Arduino.h"
 
-#define DEBOUNCE_LOW 0x0
+#define DEBOUNCE_LOW 0x00
 #define DEBOUNCE_HIGH 0x01
 #define DEBOUNCE_RISE 0x02
 #define DEBOUNCE_FALL 0x03
@@ -30,7 +30,7 @@ class DebounceNoInt {
 		uint8_t history = 0;
 		uint8_t debounce_state = DEBOUNCE_NOISE;	// safe default state
 		unsigned long last_debounce_micros = 0;
-		unsigned long curr_debounce_micros;
+		unsigned long curr_debounce_micros = 0;
 };
 
 #endif
