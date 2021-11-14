@@ -1,4 +1,4 @@
-# Arduino syntax coloring for library classes and methods
+# Arduino syntax coloring
 
 # Classes (KEYWORD1)
 DebounceNoInt KEYWORD1
@@ -7,3 +7,10 @@ DebounceNoInt KEYWORD1
 begin	KEYWORD2
 getDebounceState	KEYWORD2
 run		KEYWORD2
+
+# Constants (LITERAL1)
+DEBOUNCE_LOW	LITERAL1
+DEBOUNCE_HIGH	LITERAL1
+DEBOUNCE_RISE 	LITERAL1
+DEBOUNCE_FALL	LITERAL1
+DEBOUNCE_NOISE 	LITERAL1
