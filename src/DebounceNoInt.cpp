@@ -74,7 +74,7 @@ bool DebounceNoInt::run() {
 		case 0b10000000:
 			debounce_state = DEBOUNCE_FALL;
 			break;
-		case 0b00000001:
+		case 0b01111111:
 			debounce_state = DEBOUNCE_RISE;
 			break;
 		case 0b00000000:
