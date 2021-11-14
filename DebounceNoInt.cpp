@@ -66,7 +66,7 @@ bool DebounceNoInt::run() {
 	bool ret;
 
 	// check if time to take new input reading
-	if ((curr_debounce_micros - last_debounce_micros) > debounce_interval_us) {
+	if ((curr_debounce_micros - last_debounce_micros) >= debounce_interval_us) {
 		history <<= 1;
 		
 		// if input is high, set LSB to 1
