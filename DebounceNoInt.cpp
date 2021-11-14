@@ -38,7 +38,7 @@ void DebounceNoInt::begin() {
 	// Time between pin reads is total debounce time divided by length of history,
 	// hardcoded here as 8. This could be changed, but 8 seems to be long enough,
 	// and fits in one uint_8 variable.
-	debounce_interval_us = debounce_time_us / 8;
+	debounce_interval_us = _debounce_time_us / 8;
 }
 
 /*
@@ -67,7 +67,7 @@ bool DebounceNoInt::run() {
 
 	// check if time to take new input reading
 	if ((curr_debounce_micros - last_debounce_micros) > debounce_interval_us) {
-		history << 1;
+		history <<= 1;
 		
 		// if input is high, set LSB to 1
 		// if input is low, set LSB to 0
