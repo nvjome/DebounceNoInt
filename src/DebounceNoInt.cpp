@@ -42,18 +42,6 @@ void DebounceNoInt::begin() {
 }
 
 /*
-	getDebounceState
-
-	Returns the current debounced input state. Includes a noise state for when the
-	input is detected as bouncing. This DOES NOT run the debouncing algorithm, run() MUST
-	be called to update the input state! This was done to make this function as fast as possible,
-	and allow flexability in choosing where in the application the input state gets updated.
-*/
-uint8_t DebounceNoInt::getDebounceState() {
-	return debounce_state;
-}
-
-/*
 	run
 
 	Performs the debounce algorithm. Must be called periodically and as often as
@@ -101,4 +89,28 @@ bool DebounceNoInt::run() {
 	}
 
 	return ret;
+}
+
+/*
+	getDebounceState
+
+	Returns the current debounced input state. Includes a noise state for when the
+	input is detected as bouncing. This DOES NOT run the debouncing algorithm, run() MUST
+	be called to update the input state!
+*/
+uint8_t DebounceNoInt::getDebounceState() {
+	return debounce_state;
+}
+
+/*
+	runAndGetDebounceState
+
+	Equivalent to calling run the immediately calling getDebounceState. Returns the current debounced input state,
+	or the previous state if the state was not updated by run.
+*/
+uint8_t DebounceNoInt::runAndGetDebounceState() {
+	run();
+	uint8_t state = getDebounceState();
+
+	return state;
 }

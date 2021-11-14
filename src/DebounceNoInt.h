@@ -9,13 +9,17 @@
 #define DEBOUNCE_FALL 0x03
 #define DEBOUNCE_NOISE 0x04
 
+#define DEBOUNCE_ACTIVE_LOW 0x00
+#define DEBOUNCE_ACTIVE_HIGH 0x01
+
 class DebounceNoInt {
 	public:
 		DebounceNoInt(int pin, uint8_t active_high_low, unsigned long debounce_time_us, bool pullup);
 		virtual ~DebounceNoInt();
 		void begin();
-		uint8_t getDebounceState();
 		bool run();
+		uint8_t getDebounceState();
+		uint8_t runAndGetDebounceState();
 	
 	private:
 		int _pin;
