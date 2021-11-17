@@ -17,6 +17,9 @@
 // attach to button pin, buton active low, 5ms debounce time, internal pullup active (true)
 DebounceNoInt button(BUTTON_PIN, DEBOUNCE_ACTIVE_LOW, 5000, true);
 
+// LED state variable
+uint8_t ledState = LOW;
+
 void setup() {
   // initialize object
   button.begin();
@@ -32,6 +35,15 @@ void loop() {
   // get debounced input state and light LED accordingly
   if (button.getDebounceState() == DEBOUNCE_PRESSED) {
     // button pressed
-    digitalWrite(LED_PIN, !digitalRead(LED_PIN));
+
+	// toggle LED state
+	if (ledState == LOW) {
+		ledState = HIGH;
+	} else {
+		ledState = LOW;
+	}
+
+	// write new state to LED
+    digitalWrite(LED_PIN, ledState);
   }
 }
