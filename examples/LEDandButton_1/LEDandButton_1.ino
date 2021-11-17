@@ -30,11 +30,11 @@ void loop() {
   button.run();
 
   // get debounced input state and light LED accordingly
-  if (button.getDebounceState() == DEBOUNCE_FALL) {
+  if (button.getDebounceState() == DEBOUNCE_PRESSED) {
     // button pressed
     digitalWrite(LED_PIN, HIGH);
   }
-  if (button.getDebounceState() == DEBOUNCE_RISE){
+  if (button.getDebounceState() == DEBOUNCE_RELEASED){
     // button released
     digitalWrite(LED_PIN, LOW);
   }
