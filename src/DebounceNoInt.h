@@ -18,8 +18,8 @@ class DebounceNoInt {
 		virtual ~DebounceNoInt();
 		void begin();
 		bool run();
+		bool ready();
 		uint8_t getDebounceState();
-		uint8_t runAndGetDebounceState();
 	
 	private:
 		int _pin;
@@ -31,6 +31,7 @@ class DebounceNoInt {
 		uint8_t debounce_state = DEBOUNCE_NOISE;	// safe default state
 		unsigned long last_debounce_micros = 0;
 		unsigned long curr_debounce_micros = 0;
+		bool state_updated = false;		// ready flag
 };
 
 #endif
