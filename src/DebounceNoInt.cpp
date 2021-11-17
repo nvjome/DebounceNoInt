@@ -105,7 +105,10 @@ bool DebounceNoInt::run() {
 
 		ret = 1;
 	} else {
+		// not time to update
 		ret = 0;
+		// force invalid state such that repeated states are avoided
+		debounce_state = DEBOUNCE_INVALID;
 	}
 
 	return ret;
