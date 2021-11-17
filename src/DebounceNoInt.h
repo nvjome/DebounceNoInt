@@ -3,8 +3,8 @@
 
 #include "Arduino.h"
 
-#define DEBOUNCE_OFF 0x00
-#define DEBOUNCE_ON 0x01
+#define DEBOUNCE_ON 0x00
+#define DEBOUNCE_OFF 0x01
 #define DEBOUNCE_PRESSED 0x02
 #define DEBOUNCE_RELEASED 0x03
 #define DEBOUNCE_NOISE 0x04
