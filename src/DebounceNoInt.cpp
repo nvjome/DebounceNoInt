@@ -72,32 +72,16 @@ bool DebounceNoInt::run() {
 		// update debounce state based on input history
 		switch (history) {
 		case 0b10000000:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_PRESSED;
-			} else {
-				debounce_state = DEBOUNCE_RELEASED;
-			}
+			debounce_state = DEBOUNCE_FALL;
 			break;
 		case 0b01111111:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_RELEASED;
-			} else {
-				debounce_state = DEBOUNCE_PRESSED;
-			}
+			debounce_state = DEBOUNCE_RISE;
 			break;
 		case 0b00000000:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_ON;
-			} else {
-				debounce_state = DEBOUNCE_OFF;
-			}
+			debounce_state = DEBOUNCE_LOW;
 			break;
 		case 0b11111111:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_OFF;
-			} else {
-				debounce_state = DEBOUNCE_ON;
-			}
+			debounce_state = DEBOUNCE_HIGH;
 			break;
 		default:
 			debounce_state = DEBOUNCE_NOISE;
