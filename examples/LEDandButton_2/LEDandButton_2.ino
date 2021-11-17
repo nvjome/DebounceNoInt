@@ -30,20 +30,23 @@ void setup() {
 
 void loop() {
   // update debounce state
-  button.run();
+  int updateB = button.run();
 
-  // get debounced input state and light LED accordingly
-  if (button.getDebounceState() == DEBOUNCE_PRESSED) {
-    // button pressed
-
-	// toggle LED state
-	if (ledState == LOW) {
-		ledState = HIGH;
-	} else {
-		ledState = LOW;
-	}
-
-	// write new state to LED
-    digitalWrite(LED_PIN, ledState);
+  // check if run() updated the debounce state
+  if (updateB == true) {
+    // get debounced input state and light LED accordingly
+    if (button.getDebounceState() == DEBOUNCE_PRESSED) {
+      // button pressed
+  
+  	// toggle LED state
+  	if (ledState == LOW) {
+  		ledState = HIGH;
+  	} else {
+  		ledState = LOW;
+  	}
+  
+  	// write new state to LED
+      digitalWrite(LED_PIN, ledState);
+    }
   }
 }
