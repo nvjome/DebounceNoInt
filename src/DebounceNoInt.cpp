@@ -122,7 +122,7 @@ bool DebounceNoInt::run() {
 	Returns true if the debounce state was updated by a previous call to run().
 	Return false if the debounce state was NOT updated by a previous call to run().
 */
-DebounceNoInt::ready() {
+bool DebounceNoInt::ready() {
 	return state_updated;
 }
 
