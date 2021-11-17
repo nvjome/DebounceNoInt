@@ -30,10 +30,10 @@ void setup() {
 
 void loop() {
   // update debounce state
-  int updateB = button.run();
+  button.run();
 
   // check if run() updated the debounce state
-  if (updateB == true) {
+  if (button.ready() == true) {
     // get debounced input state and light LED accordingly
     if (button.getDebounceState() == DEBOUNCE_PRESSED) {
       // button pressed
