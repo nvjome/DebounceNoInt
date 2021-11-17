@@ -104,11 +104,26 @@ bool DebounceNoInt::run() {
 		}
 
 		ret = 1;
+		// set ready flag
+		state_updated = true;
 	} else {
 		ret = 0;
+		// reset ready flag
+		state_updated = false;
 	}
 
 	return ret;
+}
+
+/*
+	ready
+
+	Used to check to see if the debounce state is up to date and valid for use.
+	Returns true if the debounce state was updated by a previous call to run().
+	Return false if the debounce state was NOT updated by a previous call to run().
+*/
+DebounceNoInt::ready() {
+	return state_updated;
 }
 
 /*
@@ -120,17 +135,4 @@ bool DebounceNoInt::run() {
 */
 uint8_t DebounceNoInt::getDebounceState() {
 	return debounce_state;
-}
-
-/*
-	runAndGetDebounceState
-
-	Equivalent to calling run the immediately calling getDebounceState. Returns the current debounced input state,
-	or the previous state if the state was not updated by run.
-*/
-uint8_t DebounceNoInt::runAndGetDebounceState() {
-	run();
-	uint8_t state = getDebounceState();
-
-	return state;
 }
