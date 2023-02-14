@@ -29,14 +29,14 @@ void loop() {
   // update debounce state
   int updateB = button.run();
 
-  // check if run() up0 {dated the debounce state
-  if (updateB ==  true
+  // check if run() updated the debounce state
+  if (updateB ==  true) {
     // get debounced input state and light LED accordingly
-    if (button.getDebounceState() == DEBOUNCE_PRESSED) {
+    if (button.getDebounceState() == DEBOUNCE_ON) {
       // button pressed
       digitalWrite(LED_PIN, HIGH);
     }
-    if (button.getDebounceState() == DEBOUNCE_RELEASED){
+    if (button.getDebounceState() == DEBOUNCE_OFF) {
       // button released
       digitalWrite(LED_PIN, LOW);
     }
