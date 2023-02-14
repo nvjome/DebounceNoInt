@@ -18,7 +18,7 @@
 DebounceNoInt button(BUTTON_PIN, DEBOUNCE_ACTIVE_LOW, 5000, true);
 
 // LED state variable
-uint8_t ledState = LOW;
+bool ledState = LOW;
 
 void setup() {
   // initialize object
@@ -29,23 +29,13 @@ void setup() {
 }
 
 void loop() {
-  // update debounce state
-  int updateB = button.run();
-
   // check if run() updated the debounce state
-  if (updateB == true) {
+  if (button.run() == true) {
     // get debounced input state and light LED accordingly
     if (button.getDebounceState() == DEBOUNCE_PRESSED) {
-      // button pressed
-  
-  	// toggle LED state
-  	if (ledState == LOW) {
-  		ledState = HIGH;
-  	} else {
-  		ledState = LOW;
-  	}
-  
-  	// write new state to LED
+      // toggle LED state
+      ledState = !ledState;
+  	  // write new state to LED
       digitalWrite(LED_PIN, ledState);
     }
   }
