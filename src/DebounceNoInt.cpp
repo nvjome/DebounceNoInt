@@ -73,34 +73,34 @@ bool DebounceNoInt::run() {
 		switch (history) {
 		case 0b10000000:
 			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_PRESSED;
+				_state = FALL;
 			} else {
-				debounce_state = DEBOUNCE_RELEASED;
+				_state = RISE;
 			}
 			break;
 		case 0b01111111:
 			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_RELEASED;
+				_state = RISE;
 			} else {
-				debounce_state = DEBOUNCE_PRESSED;
+				_state = FALL;
 			}
 			break;
 		case 0b00000000:
 			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_ON;
+				_state = HIGH;
 			} else {
-				debounce_state = DEBOUNCE_OFF;
+				_state = LOW;
 			}
 			break;
 		case 0b11111111:
 			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				debounce_state = DEBOUNCE_OFF;
+				_state = LOW;
 			} else {
-				debounce_state = DEBOUNCE_ON;
+				_state = HIGH;
 			}
 			break;
 		default:
-			debounce_state = DEBOUNCE_NOISE;
+			_state = DEBOUNCE_NOISE;
 		}
 
 		ret = 1;
@@ -118,8 +118,8 @@ bool DebounceNoInt::run() {
 	input is detected as bouncing. This DOES NOT run the debouncing algorithm, run() MUST
 	be called to update the input state!
 */
-uint8_t DebounceNoInt::getDebounceState() {
-	return debounce_state;
+debounce_state DebounceNoInt::getDebounceState() {
+	return _state;
 }
 
 /*
@@ -128,9 +128,7 @@ uint8_t DebounceNoInt::getDebounceState() {
 	Equivalent to calling run the immediately calling getDebounceState. Returns the current debounced input state,
 	or the previous state if the state was not updated by run.
 */
-uint8_t DebounceNoInt::runAndGetDebounceState() {
+debounce_state DebounceNoInt::runAndGetDebounceState() {
 	run();
-	uint8_t state = getDebounceState();
-
-	return state;
+	return getDebounceState();
 }
