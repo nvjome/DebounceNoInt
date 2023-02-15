@@ -1,5 +1,5 @@
-#include "DebounceNoInt.h"
 #include "Arduino.h"
+#include "DebounceNoInt.h"
 
 /*
     DebounceNoInt
@@ -33,7 +33,7 @@ void DebounceNoInt::begin() {
 	// Time between pin reads is total debounce time divided by length of history,
 	// hardcoded here as 8. This could be changed, but 8 seems to be long enough,
 	// and fits in one uint_8 variable.
-	debounce_interval_us = debounce_time_us_ / 8;
+	debounce_interval_us_ = debounce_time_us_ / 8;
 }
 
 /*
@@ -45,62 +45,44 @@ void DebounceNoInt::begin() {
 	was not updated.
 */
 bool DebounceNoInt::update() {
-	bool ret;
+	bool ret = 0;
 	// get current micros time
-	curr_debounce_micros = micros();
+	unsigned long curr_debounce_micros = micros();
 
 	// check micros time to take new input reading
-	if ((curr_debounce_micros - last_debounce_micros) >= debounce_interval_us) {
+	if ((curr_debounce_micros - last_debounce_micros_) >= debounce_interval_us_) {
 		// reset previous micros time reading
-		last_debounce_micros = curr_debounce_micros;
+		last_debounce_micros_ = curr_debounce_micros;
 		// prepare history for new input reading
-		history <<= 1;
+		history_ <<= 1;
 		
 		// if input is high, set LSB to 1
 		// if input is low, set LSB to 0
-		if (digitalRead(_pin) == true) {
-			history |= 0x01;
+		if (digitalRead(pin_) == true) {
+			history_ |= 0x01;
 		} else {
-			history &= ~0x01;
+			history_ &= ~0x01;
 		}
 
 		// update debounce state based on input history
-		switch (history) {
+		switch (history_) {
 		case 0b10000000:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				_state = FALL;
-			} else {
-				_state = RISE;
-			}
+			state_ = FALL;
 			break;
 		case 0b01111111:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				_state = RISE;
-			} else {
-				_state = FALL;
-			}
+			state_ = RISE;
 			break;
 		case 0b00000000:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				_state = HIGH;
-			} else {
-				_state = LOW;
-			}
+			state_ = LOW;
 			break;
 		case 0b11111111:
-			if (_active_high_low == DEBOUNCE_ACTIVE_LOW) {
-				_state = LOW;
-			} else {
-				_state = HIGH;
-			}
+			state_ = HIGH;
 			break;
 		default:
-			_state = DEBOUNCE_NOISE;
+			state_ = NOISE;
 		}
 
 		ret = 1;
-	} else {
-		ret = 0;
 	}
 
 	return ret;
@@ -114,5 +96,5 @@ bool DebounceNoInt::update() {
 	be called to update the input state!
 */
 debounce_state DebounceNoInt::getState() {
-	return _state;
+	return state_;
 }
