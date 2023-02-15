@@ -112,13 +112,13 @@ bool DebounceNoInt::run() {
 }
 
 /*
-	getDebounceState
+	getState
 
 	Returns the current debounced input state. Includes a noise state for when the
 	input is detected as bouncing. This DOES NOT run the debouncing algorithm, run() MUST
 	be called to update the input state!
 */
-debounce_state DebounceNoInt::getDebounceState() {
+debounce_state DebounceNoInt::getState() {
 	return _state;
 }
 
