@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2023 nvjome
+Copyright (c) 2023 Nolan Jome (github.com/nvjome)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
