@@ -14,7 +14,7 @@ class DebounceNoInt {
 		virtual ~DebounceNoInt();
 		void begin();
 		bool run();
-		debounce_state getDebounceState();
+		debounce_state getState();
 		debounce_state runAndGetDebounceState();
 	
 	private:
