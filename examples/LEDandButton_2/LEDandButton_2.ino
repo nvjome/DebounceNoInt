@@ -27,14 +27,13 @@ void setup() {
 }
 
 void loop() {
-  // check if run() updated the debounce state
-  if (button.run() == true) {
-    // get debounced input state and light LED accordingly
-    if (button.getDebounceState() == DEBOUNCE_PRESSED) {
-      // toggle LED state
-      ledState = !ledState;
-  	  // write new state to LED
-      digitalWrite(LED_PIN, ledState);
-    }
+  button.update();
+
+  // get debounced input state and light LED accordingly
+  if (button.getState() == DebounceNoInt::FALL) {
+    // toggle LED state
+    ledState = !ledState;
+    // write new state to LED
+    digitalWrite(LED_PIN, ledState);
   }
 }

@@ -28,11 +28,11 @@ void loop() {
   button.update();
 
   // get debounced input state and light LED accordingly
-  if (button.getState() == LOW) {
+  if (button.getState() == DebounceNoInt::FALL) {
     // button pressed
     digitalWrite(LED_PIN, HIGH);
   }
-  if (button.getState() == HIGH) {
+  if (button.getState() == DebounceNoInt::RISE) {
     // button released
     digitalWrite(LED_PIN, LOW);
   }
