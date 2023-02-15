@@ -44,7 +44,7 @@ void DebounceNoInt::begin() {
     Return false if the debounce interval time was not met and the debounce state
     was not updated.
 */
-bool DebounceNoInt::update() {
+debounce_state DebounceNoInt::update() {
     // if state was changed to an edge last update(), change to corresponding next state
     if (state_ == RISE) {
         state_ = HIGH;

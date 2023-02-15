@@ -10,7 +10,7 @@ class DebounceNoInt {
         DebounceNoInt(int pin, int mode, unsigned long debounce_time_us);
         virtual ~DebounceNoInt();
         void begin();
-        bool update();
+        debounce_state update();
         debounce_state getState();
     
     private:
