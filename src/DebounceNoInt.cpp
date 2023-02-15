@@ -45,12 +45,14 @@ void DebounceNoInt::begin() {
     was not updated.
 */
 debounce_state DebounceNoInt::update() {
+    debounce_state nstate = state_;
+
     // if state was changed to an edge last update(), change to corresponding next state
     if (state_ == RISE) {
-        state_ = HIGH;
+        nstate = HIGH;
     }
     if (state_ == FALL) {
-        state_ = LOW;
+        nstate = LOW;
     }
     
     unsigned long curr_debounce_micros = micros();
@@ -70,19 +72,37 @@ debounce_state DebounceNoInt::update() {
             history_ &= ~0x01;
         }
 
-        // update debounce state based on input history
-        switch (history_) {
-        case 0b10000000:
-            state_ = FALL;
-            break;
-        case 0b01111111:
-            state_ = RISE;
-            break;
-        default:
-            ; // must be bounce, don't change state
+        switch (state_) {
+            case HIGH:
+                // only check for FALL in HIGH state
+                if (history_ == 0b10000000) {
+                    nstate = FALL;
+                }
+                break;
+            case LOW:
+                // only check for RISE in LOW state
+                if (history_ == 0b01111111) {
+                    nstate = RISE;
+                }
+                break;
+            default:
+                ; // must bounce or noise, do nothing
         }
+
+        // update debounce state based on input history
+        /*switch (history_) {
+            case 0b10000000:
+                state_ = FALL;
+                break;
+            case 0b01111111:
+                state_ = RISE;
+                break;
+            default:
+                ; // must be bounce, don't change state
+        }*/
     }
 
+    state_ = nstate;
     return state_;
 }
 
