@@ -42,14 +42,14 @@ void DebounceNoInt::begin() {
 }
 
 /*
-	run
+	update
 
 	Performs the debounce algorithm. Must be called periodically and as often as
 	possible for best debouncing results. Returns true if the algorithm was run.
 	Return false if the debounce interval time was not met and the debounce state
 	was not updated.
 */
-bool DebounceNoInt::run() {
+bool DebounceNoInt::update() {
 	bool ret;
 	// get current micros time
 	curr_debounce_micros = micros();
@@ -120,15 +120,4 @@ bool DebounceNoInt::run() {
 */
 debounce_state DebounceNoInt::getState() {
 	return _state;
-}
-
-/*
-	runAndGetDebounceState
-
-	Equivalent to calling run the immediately calling getDebounceState. Returns the current debounced input state,
-	or the previous state if the state was not updated by run.
-*/
-debounce_state DebounceNoInt::runAndGetDebounceState() {
-	run();
-	return getDebounceState();
 }
