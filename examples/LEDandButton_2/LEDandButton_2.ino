@@ -3,9 +3,7 @@
  * https://github.com/nvjome/DebounceNoInt
  * 
  * Toggles on LED when a button is pressed, toggles off when pressed again.
- * Uses DEBOUNCE_FALL state to detect button and control LED.
- * 
- * Written by nvjome.
+ * Uses FALL state to detect button and control LED.
  */
 
 #include <DebounceNoInt.h>
@@ -14,8 +12,8 @@
 #define BUTTON_PIN 4
 
 // create debounce object
-// attach to button pin, buton active low, 5ms debounce time, internal pullup active (true)
-DebounceNoInt button(BUTTON_PIN, DEBOUNCE_ACTIVE_LOW, 5000, true);
+// attach to button pin, input pullup mode, 5ms debounce time
+DebounceNoInt button(BUTTON_PIN, INPUT_PULLUP, 5000);
 
 // LED state variable
 bool ledState = LOW;
