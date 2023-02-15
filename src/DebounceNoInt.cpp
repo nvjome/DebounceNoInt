@@ -6,11 +6,10 @@
     
     Constructor for debounce object.
 */
-DebounceNoInt::DebounceNoInt(int pin, uint8_t active_high_low, unsigned long debounce_time_us, bool pullup) {
-    _pin = pin;
-    _active_high_low = active_high_low;
-    _debounce_time_us = debounce_time_us;
-    _pullup = pullup;
+DebounceNoInt::DebounceNoInt(int pin, int mode, unsigned long debounce_time_us) {
+    pin_ = pin;
+    mode_ = mode;
+    debounce_time_us_ = debounce_time_us;
 }
 
 /*
@@ -29,16 +28,12 @@ DebounceNoInt::~DebounceNoInt() {
     Does no checking to determine if the desired pin is valid.
 */
 void DebounceNoInt::begin() {
-	if (_pullup == true) {
-		pinMode(_pin, INPUT_PULLUP);
-	} else {
-		pinMode(_pin, INPUT);
-	}
+	pinMode(pin_, mode_);
 
 	// Time between pin reads is total debounce time divided by length of history,
 	// hardcoded here as 8. This could be changed, but 8 seems to be long enough,
 	// and fits in one uint_8 variable.
-	debounce_interval_us = _debounce_time_us / 8;
+	debounce_interval_us = debounce_time_us_ / 8;
 }
 
 /*
