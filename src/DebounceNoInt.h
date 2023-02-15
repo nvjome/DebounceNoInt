@@ -24,7 +24,7 @@ class DebounceNoInt {
 		unsigned long debounce_interval_us = 0;
 		bool _pullup;
 		uint8_t history = 0;
-		debounce_state debounce_state = NOISE;	// safe default state
+		debounce_state _state = NOISE;	// safe default state
 		unsigned long last_debounce_micros = 0;
 		unsigned long curr_debounce_micros = 0;
 };
