@@ -17,11 +17,10 @@ class DebounceNoInt {
 		int pin_;
 		int mode_;
 		unsigned long debounce_time_us_;
-		unsigned long debounce_interval_us = 0;
-		uint8_t history = 0;
-		debounce_state _state = NOISE;	// safe default state
-		unsigned long last_debounce_micros = 0;
-		unsigned long curr_debounce_micros = 0;
+		unsigned long debounce_interval_us_ = 0;
+		uint8_t history_ = 0;
+		debounce_state state_ = NOISE;	// safe default state
+		unsigned long last_debounce_micros_ = 0;
 };
 
 #endif
