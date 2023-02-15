@@ -44,8 +44,8 @@ void DebounceNoInt::begin() {
     Return false if the debounce interval time was not met and the debounce state
     was not updated.
 */
-debounce_state DebounceNoInt::update() {
-    debounce_state nstate = state_;
+State DebounceNoInt::update() {
+    State nstate = state_;
 
     // if state was changed to an edge last update(), change to corresponding next state
     if (state_ == RISE) {
@@ -113,6 +113,6 @@ debounce_state DebounceNoInt::update() {
     input is detected as bouncing. This DOES NOT run the debouncing algorithm, run() MUST
     be called to update the input state!
 */
-debounce_state DebounceNoInt::getState() {
+State DebounceNoInt::getState() {
     return state_;
 }

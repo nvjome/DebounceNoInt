@@ -3,15 +3,15 @@
 
 #include "Arduino.h"
 
-enum debounce_state {HIGH, LOW, RISE, FALL, NOISE};
-
 class DebounceNoInt {
     public:
+        enum State {HIGH, LOW, RISE, FALL, NOISE};
+    
         DebounceNoInt(int pin, int mode, unsigned long debounce_time_us);
         virtual ~DebounceNoInt();
         void begin();
-        debounce_state update();
-        debounce_state getState();
+        State update();
+        State getState();
     
     private:
         int pin_;
