@@ -45,8 +45,14 @@ void DebounceNoInt::begin() {
 	was not updated.
 */
 bool DebounceNoInt::update() {
-	bool ret = 0;
-	// get current micros time
+    // if state was changed to an edge last update(), change to corresponding next state
+    if (state_ == RISE) {
+        state_ = HIGH;
+    }
+    if (state_ == FALL) {
+        state_ = LOW;
+    }
+    
 	unsigned long curr_debounce_micros = micros();
 
 	// check micros time to take new input reading
@@ -58,34 +64,26 @@ bool DebounceNoInt::update() {
 		
 		// if input is high, set LSB to 1
 		// if input is low, set LSB to 0
-		if (digitalRead(pin_) == true) {
+		if (digitalRead(pin_)) {
 			history_ |= 0x01;
 		} else {
 			history_ &= ~0x01;
 		}
 
 		// update debounce state based on input history
-		switch (history_) {
+    	switch (history_) {
 		case 0b10000000:
 			state_ = FALL;
 			break;
 		case 0b01111111:
 			state_ = RISE;
 			break;
-		case 0b00000000:
-			state_ = LOW;
-			break;
-		case 0b11111111:
-			state_ = HIGH;
-			break;
 		default:
-			state_ = NOISE;
+			; // must be bounce, don't change state
 		}
-
-		ret = 1;
 	}
 
-	return ret;
+	return state_;
 }
 
 /*
