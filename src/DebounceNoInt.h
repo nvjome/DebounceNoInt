@@ -13,9 +13,8 @@ class DebounceNoInt {
 		DebounceNoInt(int pin, uint8_t active_high_low, unsigned long debounce_time_us, bool pullup);
 		virtual ~DebounceNoInt();
 		void begin();
-		bool run();
+		bool update();
 		debounce_state getState();
-		debounce_state runAndGetDebounceState();
 	
 	private:
 		int _pin;
