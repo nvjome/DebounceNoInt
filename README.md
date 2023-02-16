@@ -2,4 +2,4 @@
 
 Arduino library for debouncing buttons. Uses a non-blocking process without interrupts.
 
-Provides options for using internal pullups, active high or low selection, and setting the debounce time.
+Provides options for edge and steady-state detection through a custom enumerated type or getter functions.
