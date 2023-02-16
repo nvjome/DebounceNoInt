@@ -116,3 +116,51 @@ State DebounceNoInt::update() {
 State DebounceNoInt::getState() {
     return state_;
 }
+
+/*
+    isRisen
+
+    Returns true if state is rising edge, false if not.
+*/
+bool DebounceNoInt::isRisen() {
+    if (state_ == DB_RISE) {
+        return true;
+    }
+    return false;
+}
+
+/*
+    isFallen
+
+    Returns true if state is falling edge, false if not.
+*/
+bool DebounceNoInt::isFallen() {
+    if (state_ == DB_FALL) {
+        return true;
+    }
+    return false;
+}
+
+/*
+    isHigh
+    
+    Returns true if state is high, false if not.
+*/
+bool DebounceNoInt::isHigh() {
+    if (state_ == DB_HIGH) {
+        return true;
+    }
+    return false;
+}
+
+/*
+    isLow
+    
+    Returns true if state is low, false if not.
+*/
+bool DebounceNoInt::isLow() {
+    if (state_ == DB_LOW) {
+        return true;
+    }
+    return false;
+}

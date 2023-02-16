@@ -12,6 +12,10 @@ class DebounceNoInt {
         void begin();
         State update();
         State getState();
+        bool isRisen();
+        bool isFallen();
+        bool isHigh();
+        bool isLow();
     
     private:
         int pin_;
