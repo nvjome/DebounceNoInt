@@ -30,7 +30,7 @@ void loop() {
   button.update();
 
   // get debounced input state and light LED accordingly
-  if (button.getState() == DebounceNoInt::FALL) {
+  if (button.getState() == DB_FALL) {
     // toggle LED state
     ledState = !ledState;
     // write new state to LED
