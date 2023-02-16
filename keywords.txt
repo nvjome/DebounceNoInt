@@ -8,6 +8,10 @@ DebounceNoInt
 begin	KEYWORD2
 getState	KEYWORD2
 update	KEYWORD2
+isRisen KEYWORD2
+isFallen    KEYWORD2
+isHigh  KEYWORD2
+isLow   KEYWORD2
 
 # Constants (LITERAL1)
 DB_HIGH	LITERAL1
