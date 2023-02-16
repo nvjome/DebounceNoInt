@@ -48,11 +48,11 @@ State DebounceNoInt::update() {
     State nstate = state_;
 
     // if state was changed to an edge last update(), change to corresponding next state
-    if (state_ == RISE) {
-        nstate = HIGH;
+    if (state_ == DB_RISE) {
+        nstate = DB_HIGH;
     }
-    if (state_ == FALL) {
-        nstate = LOW;
+    if (state_ == DB_FALL) {
+        nstate = DB_LOW;
     }
     
     unsigned long curr_debounce_micros = micros();
@@ -73,16 +73,16 @@ State DebounceNoInt::update() {
         }
 
         switch (state_) {
-            case HIGH:
+            case DB_HIGH:
                 // only check for FALL in HIGH state
                 if (history_ == 0b10000000) {
-                    nstate = FALL;
+                    nstate = DB_FALL;
                 }
                 break;
-            case LOW:
+            case DB_LOW:
                 // only check for RISE in LOW state
                 if (history_ == 0b01111111) {
-                    nstate = RISE;
+                    nstate = DB_RISE;
                 }
                 break;
             default:
