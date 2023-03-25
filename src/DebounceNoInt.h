@@ -3,6 +3,8 @@
 
 #include "Arduino.h"
 
+#define DEBOUNCE_OVERHAUL
+
 enum State {DB_HIGH, DB_LOW, DB_RISE, DB_FALL, DB_NOISE};
 
 class DebounceNoInt {
