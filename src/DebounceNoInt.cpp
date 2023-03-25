@@ -29,11 +29,13 @@ DebounceNoInt::~DebounceNoInt() {
 */
 void DebounceNoInt::begin() {
     pinMode(pin_, mode_);
+	pinMode(5, OUTPUT);
 
-    // Time between pin reads is total debounce time divided by length of history,
-    // hardcoded here as 8. This could be changed, but 8 seems to be long enough,
-    // and fits in one uint_8 variable.
-    debounce_interval_us_ = debounce_time_us_ / 7;
+    // Time between pin reads is total debounce time divided by number of consecutive
+	// 0 or 1 reads required to change states, in this case 7. If the 1st read is very
+	// close to the transition, then the 7th read will be only 6 intervals later. So
+	// the interval must be 1/6th the debounce time.
+    debounce_interval_us_ = debounce_time_us_ / 6;
 }
 
 /*
@@ -59,6 +61,7 @@ State DebounceNoInt::update() {
 
     // check micros time to take new input reading
     if ((curr_debounce_micros - last_debounce_micros_) >= debounce_interval_us_) {
+		digitalWrite(5, !digitalRead(5));
         // reset previous micros time reading
         last_debounce_micros_ = curr_debounce_micros;
         // prepare history for new input reading
