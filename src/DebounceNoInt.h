@@ -3,34 +3,28 @@
 
 #include "Arduino.h"
 
-#define DEBOUNCE_OFF 0x00
-#define DEBOUNCE_ON 0x01
-#define DEBOUNCE_PRESSED 0x02
-#define DEBOUNCE_RELEASED 0x03
-#define DEBOUNCE_NOISE 0x04
-
-#define DEBOUNCE_ACTIVE_LOW 0x00
-#define DEBOUNCE_ACTIVE_HIGH 0x01
+enum DB_State {DB_HIGH, DB_LOW, DB_RISE, DB_FALL, DB_NOISE};
 
 class DebounceNoInt {
-	public:
-		DebounceNoInt(int pin, uint8_t active_high_low, unsigned long debounce_time_us, bool pullup);
-		virtual ~DebounceNoInt();
-		void begin();
-		bool run();
-		uint8_t getDebounceState();
-		uint8_t runAndGetDebounceState();
-	
-	private:
-		int _pin;
-		uint8_t _active_high_low;
-		unsigned long _debounce_time_us;
-		unsigned long debounce_interval_us = 0;
-		bool _pullup;
-		uint8_t history = 0;
-		uint8_t debounce_state = DEBOUNCE_NOISE;	// safe default state
-		unsigned long last_debounce_micros = 0;
-		unsigned long curr_debounce_micros = 0;
+    public:
+        DebounceNoInt(int pin, int mode, unsigned long debounce_time_us);
+        virtual ~DebounceNoInt();
+        void begin();
+        DB_State update();
+        DB_State getState();
+        bool isRisen();
+        bool isFallen();
+        bool isHigh();
+        bool isLow();
+    
+    private:
+        int pin_;
+        int mode_;
+        unsigned long debounce_time_us_;
+        unsigned long debounce_interval_us_ = 0;
+        uint8_t history_ = 0;
+        DB_State state_ = DB_NOISE;	// safe default state
+        unsigned long last_debounce_micros_ = 0;
 };
 
 #endif
