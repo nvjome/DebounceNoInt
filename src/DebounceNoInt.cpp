@@ -33,7 +33,7 @@ void DebounceNoInt::begin() {
     // Time between pin reads is total debounce time divided by length of history,
     // hardcoded here as 8. This could be changed, but 8 seems to be long enough,
     // and fits in one uint_8 variable.
-    debounce_interval_us_ = debounce_time_us_ / 8;
+    debounce_interval_us_ = debounce_time_us_ / 7;
 }
 
 /*
@@ -72,22 +72,25 @@ State DebounceNoInt::update() {
             history_ &= ~0x01;
         }
 
-        switch (state_) {
-            case DB_HIGH:
-                // only check for FALL in HIGH state
-                if (history_ == 0b10000000) {
-                    nstate = DB_FALL;
-                }
-                break;
-            case DB_LOW:
-                // only check for RISE in LOW state
-                if (history_ == 0b01111111) {
-                    nstate = DB_RISE;
-                }
-                break;
-            default:
-                ; // must bounce or noise, do nothing
-        }
+        if (state_ == DB_HIGH) {
+			// only check for FALL in HIGH state
+			if (history_ == 0b10000000) {
+				nstate = DB_FALL;
+			}
+		} else if (state_ == DB_LOW) {
+			// only check for RISE in LOW state
+			if (history_ == 0b01111111) {
+				nstate = DB_RISE;
+			}
+		} else if (state_ == DB_NOISE) {
+			// check for both in noise state
+			// should only happen on first update() call
+			if (history_ == 0b10000000) {
+				nstate = DB_FALL;
+			} else if (history_ == 0b01111111) {
+				nstate = DB_RISE;
+			}
+		}
 
         // update debounce state based on input history
         /*switch (history_) {
